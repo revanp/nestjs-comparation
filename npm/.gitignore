@@ -150,3 +150,10 @@ temp/
 
 # Turbo
 .turbo
+
+# Package manager caches
+.npm/
+.npm-cache/
+false/
+metadata/
+.pnpm-store/

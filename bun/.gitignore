@@ -154,3 +154,10 @@ temp/
 # Bun specific
 .bun
 bun.lockb
+
+# Package manager caches
+.npm/
+.npm-cache/
+false/
+metadata/
+.pnpm-store/

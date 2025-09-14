@@ -7,6 +7,12 @@
 
 set -e
 
+# Ensure we're using bash with associative array support
+if [ -z "$BASH_VERSION" ]; then
+    echo "This script requires bash with associative array support"
+    exit 1
+fi
+
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -64,6 +70,30 @@ clean_project() {
     rm -f package-lock.json pnpm-lock.yaml bun.lockb
     rm -rf dist
     
+    # Clear TypeScript cache
+    rm -f tsconfig.tsbuildinfo
+    
+    # Clear SWC cache
+    rm -rf .swc
+    
+    # Clear other caches
+    rm -rf .cache
+    rm -rf .parcel-cache
+    rm -rf .turbo
+    
+    # Clear package manager caches
+    case $project in
+        "npm")
+            npm cache clean --force 2>/dev/null || true
+            ;;
+        "pnpm"|"pnpm-swc")
+            pnpm store prune 2>/dev/null || true
+            ;;
+        "bun")
+            bun pm cache rm 2>/dev/null || true
+            ;;
+    esac
+    
     cd ..
     echo -e "${GREEN}✅ ${project} cleaned${NC}"
 }
@@ -79,13 +109,13 @@ test_installation() {
         
         case $project in
             "npm")
-                measure_time "npm install" "$project" "install"
+                measure_time "npm install --no-cache --prefer-offline" "$project" "install"
                 ;;
             "pnpm"|"pnpm-swc")
-                measure_time "pnpm install" "$project" "install"
+                measure_time "pnpm install --no-cache --prefer-offline" "$project" "install"
                 ;;
             "bun")
-                measure_time "bun install" "$project" "install"
+                measure_time "bun install --no-cache" "$project" "install"
                 ;;
         esac
         
@@ -105,6 +135,9 @@ test_build() {
         
         # Clean dist first
         rm -rf dist
+        
+        # Clear TypeScript cache
+        rm -f tsconfig.tsbuildinfo
         
         measure_time "npm run build" "$project" "build"
         

@@ -17,37 +17,37 @@ echo ""
 # Test installation speed
 echo -e "${YELLOW}📦 Installation Speed Test:${NC}"
 echo "NPM:"
-time (cd npm && npm install > /dev/null 2>&1)
+time (cd npm && npm install --no-cache --prefer-offline > /dev/null 2>&1)
 echo ""
 
 echo "PNPM:"
-time (cd pnpm && pnpm install > /dev/null 2>&1)
+time (cd pnpm && pnpm install --no-cache --prefer-offline > /dev/null 2>&1)
 echo ""
 
 echo "PNPM-SWC:"
-time (cd pnpm-swc && pnpm install > /dev/null 2>&1)
+time (cd pnpm-swc && pnpm install --no-cache --prefer-offline > /dev/null 2>&1)
 echo ""
 
 echo "BUN:"
-time (cd bun && bun install > /dev/null 2>&1)
+time (cd bun && bun install --no-cache > /dev/null 2>&1)
 echo ""
 
 # Test build speed
 echo -e "${YELLOW}🔨 Build Speed Test:${NC}"
 echo "NPM:"
-time (cd npm && npm run build > /dev/null 2>&1)
+time (cd npm && rm -rf dist && rm -f tsconfig.tsbuildinfo && npm run build > /dev/null 2>&1)
 echo ""
 
 echo "PNPM:"
-time (cd pnpm && npm run build > /dev/null 2>&1)
+time (cd pnpm && rm -rf dist && rm -f tsconfig.tsbuildinfo && npm run build > /dev/null 2>&1)
 echo ""
 
 echo "PNPM-SWC:"
-time (cd pnpm-swc && npm run build > /dev/null 2>&1)
+time (cd pnpm-swc && rm -rf dist && rm -f tsconfig.tsbuildinfo && rm -rf .swc && npm run build > /dev/null 2>&1)
 echo ""
 
 echo "BUN:"
-time (cd bun && npm run build > /dev/null 2>&1)
+time (cd bun && rm -rf dist && rm -f tsconfig.tsbuildinfo && npm run build > /dev/null 2>&1)
 echo ""
 
 echo -e "${GREEN}✅ Quick test completed!${NC}"

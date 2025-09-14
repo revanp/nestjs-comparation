@@ -150,3 +150,8 @@ temp/
 
 # Turbo
 .turbo
+
+# PNPM cache and metadata
+false/
+metadata/
+.pnpm-store/

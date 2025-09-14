@@ -154,3 +154,10 @@ temp/
 # SWC specific
 .swc/
 *.swc
+
+# Package manager caches
+.npm/
+.npm-cache/
+false/
+metadata/
+.pnpm-store/

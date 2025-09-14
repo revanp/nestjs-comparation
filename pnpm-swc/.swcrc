@@ -19,12 +19,12 @@
   "module": {
     "type": "commonjs",
     "strict": false,
-    "strictMode": true,
+    "strictMode": false,
     "lazy": false,
     "noInterop": false
   },
   "minify": false,
-  "isModule": false,
+  "isModule": true,
   "sourceMaps": true,
   "inlineSourcesContent": true
 }
