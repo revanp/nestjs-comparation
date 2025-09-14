@@ -2,6 +2,12 @@
 /dist
 /node_modules
 
+# Lock files
+package-lock.json
+pnpm-lock.yaml
+bun.lockb
+yarn.lock
+
 # Logs
 logs
 *.log
